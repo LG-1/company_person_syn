@@ -84,3 +84,21 @@ class LSTMPredictor(object):
         return preds
 
 
+##
+
+
+    # def create_reply_review_df(self, df_):
+    #     ft_df = pd.DataFrame()
+    #     ft_df['question_text_format'] = df_['query'].map(
+    #         lambda x: " ".join(self.sm.segment_aslist(x, mode='other', stop=False)))
+    #     ft_df['reply_text_format'] = " ".join(
+    #         self.sm.segment_aslist(self.desc, mode='other', stop=False))
+    #     return ft_df
+
+    #        df = pd.DataFrame({'query': list(tasks.values())}, index=tasks.keys())
+    #        df['reply'] = self.desc
+
+    #        ft_df = self.create_reply_review_df(df)
+    #        model = settings.AL_MODEL["nn_reply_review"]["lstm"]
+    #        result_proba = Predictor.factory(
+    #            "lstm", model).predict_proba(ft_df)

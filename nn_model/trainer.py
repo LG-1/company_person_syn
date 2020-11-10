@@ -55,7 +55,7 @@ class LSTMTrainer(object):
 
     def fit(self, x_g, y_g):
         word_index = self.tokenizer.word_index
-        emb = settings.EMB
+        emb = "load w2v"
         embedding_matrix, self.embed_size = embedding_matrix_p(
             emb, word_index, self.max_features)
         self.model = nn_model(self.model_type, self.max_len,
@@ -217,57 +217,6 @@ class LSTMTrainer(object):
         return bins
 
 
-class NeuralNet_Comment(nn.Module):
-    def __init__(self, embedding_matrix, max_features, embed_size, maxlen):
-        super(NeuralNet_Comment, self).__init__()
-
-        hidden_size = 40
-
-        self.embedding = nn.Embedding(max_features, embed_size)
-        self.embedding.weight = nn.Parameter(
-            torch.tensor(embedding_matrix, dtype=torch.float32))
-        self.embedding.weight.requires_grad = False
-
-        self.embedding_dropout = nn.Dropout2d(0.1)
-        self.lstm = nn.LSTM(embed_size, hidden_size,
-                            bidirectional=True, batch_first=True)
-        self.gru = nn.GRU(hidden_size * 2, hidden_size,
-                          bidirectional=True, batch_first=True)
-
-        self.lstm_attention = Attention(hidden_size * 2, maxlen)
-        self.gru_attention = Attention(hidden_size * 2, maxlen)
-
-        self.linear1 = nn.Linear(hidden_size*8, 128)
-        self.linear2 = nn.Linear(128, 64)
-        self.relu = nn.ReLU()
-        self.dropout = nn.Dropout(0.1)
-        self.out = nn.Linear(64, 1)
-
-    def forward(self, x):
-        h_embedding = self.embedding(x[0])
-        h_embedding = torch.squeeze(
-            self.embedding_dropout(torch.unsqueeze(h_embedding, 0)))
-
-        h_lstm, _ = self.lstm(h_embedding)
-        h_gru, _ = self.gru(h_lstm)
-
-        h_lstm_atten = self.lstm_attention(h_lstm)
-        h_gru_atten = self.gru_attention(h_gru)
-
-        # global average pooling
-        avg_pool = torch.mean(h_gru, 1)
-        # global max pooling
-        max_pool, _ = torch.max(h_gru, 1)
-
-        conc = torch.cat((h_lstm_atten, h_gru_atten, avg_pool, max_pool), 1)
-        conc = self.relu(self.linear1(conc))
-        conc = self.dropout(conc)
-        conc = self.relu(self.linear2(conc))
-        conc = self.dropout(conc)
-        out = self.out(conc)
-
-        return out
-
 
 class NeuralNet_Reply(nn.Module):
     def __init__(self, embedding_matrix, max_features, embed_size, maxlen):
@@ -390,11 +339,7 @@ def train_model_single(model, model_type, train_loader, valid_loader, batch_size
 
 def nn_model(model_type, max_len, embedding_matrix, embed_size, max_features):
     model = None
-    if model_type == "nn_comment_review":
-        model = NeuralNet_Comment(
-            embedding_matrix, max_features, embed_size, max_len)
-
-    elif model_type == "nn_reply_review":
+    if model_type == "nn_reply_review":
         model = NeuralNet_Reply(
             embedding_matrix, max_features, embed_size, max_len)
 
@@ -455,48 +400,6 @@ def prepare_nn_loader(x, y, model_type, batch_size=512, shuffle=False, device=No
         loader = torch.utils.data.DataLoader(
             train, batch_size=batch_size, shuffle=shuffle)
 
-        # import math
-        # lengths = x.shape[0]
-        # bulk = 500
-        # cycles = math.ceil(lengths/bulk)
-        # return (torch.utils.data.DataLoader(torch.utils.data.TensorDataset(
-        #     torch.tensor(x[i*bulk:(i+1)*bulk, 0], dtype=torch.long),
-        #     torch.tensor(x[i*bulk:(i+1)*bulk, 1], dtype=torch.long),
-        #     torch.tensor(y[i*bulk:(i+1)*bulk], dtype=torch.float32)),
-        #     batch_size=batch_size, shuffle=shuffle) for i in range(cycles))
-
-    elif model_type == "nn_user_cluster":
-        x1 = torch.tensor(x[:, 0], dtype=torch.long)
-        x2 = torch.tensor(x[:, 1], dtype=torch.long)
-        x3 = torch.tensor(x[:, 2], dtype=torch.long)
-        x4 = torch.tensor(x[:, 3], dtype=torch.long)
-        x5 = torch.tensor(x[:, 4], dtype=torch.long)
-        x6 = torch.tensor(x[:, 5], dtype=torch.long)
-        x7 = torch.tensor(x[:, 6], dtype=torch.long)
-        x8 = torch.tensor(x[:, 7], dtype=torch.long)
-
-        x1_2 = torch.tensor(
-            skshuffle(x[:, 0], random_state=2), dtype=torch.long)
-        x2_2 = torch.tensor(
-            skshuffle(x[:, 1], random_state=2), dtype=torch.long)
-        x3_2 = torch.tensor(
-            skshuffle(x[:, 2], random_state=2), dtype=torch.long)
-        x4_2 = torch.tensor(
-            skshuffle(x[:, 3], random_state=2), dtype=torch.long)
-        x5_2 = torch.tensor(
-            skshuffle(x[:, 4], random_state=2), dtype=torch.long)
-        x6_2 = torch.tensor(
-            skshuffle(x[:, 5], random_state=2), dtype=torch.long)
-        x7_2 = torch.tensor(
-            skshuffle(x[:, 6], random_state=2), dtype=torch.long)
-        x8_2 = torch.tensor(
-            skshuffle(x[:, 7], random_state=2), dtype=torch.long)
-
-        train = torch.utils.data.TensorDataset(x1, x2, x3, x4, x5, x6, x7, x8,
-                                               x1_2, x2_2, x3_2, x4_2, x5_2, x6_2, x7_2, x8_2)
-
-        loader = torch.utils.data.DataLoader(
-            train, batch_size=batch_size, shuffle=shuffle)
 
     return loader
 
@@ -523,13 +426,7 @@ def prepare_nn_loader_pre(x, model_type, batch_size=512, shuffle=False):
 
 def prepare_nn_x(x, model_type='nn_comment_review'):
     # 准备X数据格式
-    if model_type == "nn_comment_review":
-        x_x = x
-
-    elif model_type == "nn_reply_review":
-        x_x = x
-
-    return x_x
+    return x
 
 
 def get_best_thresh(y, pred_y):
