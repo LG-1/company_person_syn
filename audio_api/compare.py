@@ -21,6 +21,7 @@ def extract_text_from_audio_google(audio_pth):
 # https: // github.com/Uberi/speech_recognition  # readme
 
 # https://cloud.google.com/speech-to-text
+AIzaSyAH05cbCZf1rj0Q1TBqlSoNQRtI7XZPnMI
 
 
 # Google api
