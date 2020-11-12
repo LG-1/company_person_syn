@@ -21,7 +21,7 @@ def extract_text_from_audio_google(audio_pth):
 # https: // github.com/Uberi/speech_recognition  # readme
 
 # https://cloud.google.com/speech-to-text
-
+# https: // codelabs.developers.google.com/codelabs/cloud-speech-text-python3?hl = en  # 0
 
 # Google api
 "this is a download from BBC learning English to find out more visit our website and that's because we're not able to record in our normal Studios during the coronavirus outbreak and staying at home"
