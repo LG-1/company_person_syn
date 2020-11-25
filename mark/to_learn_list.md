@@ -5,3 +5,7 @@ https://www.deploymachinelearning.com
 
 Keyword extract with bert
 https://towardsdatascience.com/keyword-extraction-with-bert-724efca412ea?gi=eb4637e1532
+
+
+12 Factors of reproducible Machine Learning in production
+https://blog.maiot.io/12-factors-of-ml-in-production/
