@@ -12,4 +12,5 @@ https://blog.maiot.io/12-factors-of-ml-in-production/
 
 
 # build python web app quickly with streamlit
-https://towardsdatascience.com/how-to-build-a-data-science-web-app-in-python-61d1bed65020
+    https://towardsdatascience.com/how-to-build-a-data-science-web-app-in-python-61d1bed65020
+    https://docs.streamlit.io/en/stable/api.html
