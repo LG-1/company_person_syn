@@ -1,0 +1,62 @@
+from audio2text.audio2text import Audio2Text
+stt = Audio2Text("models/silero-models/en_v2_jit.model")
+stt.wav2text("data/TheEnglishWeSpeak-20200428-CabinFever_16000.wav")
+
+"this is a dell load from bbc learning english to find our more visit our website from bvc and english hello and welcome to the english 
+we speak with me fa fe and me roy we may found a little different that's because we're not able to record in our normal studs during 
+the crrone of ourus outbreak there has been a lot of discussion about self isolation and staying at home and in this program we have 
+an expression to talk about the stress you may feel in ab situation that's right they y today we 're going to talk about cabin fever 
+cabin fever is the reaction to feeling trapped or isolated in a building for too long it can be really stressful this expression 
+probably comes from people being trapped and not able to leave a more wooden house known as the cabin they may not have been able to 
+leave you to the extreme weather conditions like a snow storm as these buildings are often found a mountains or hills people can become 
+sad restless and even like concentration they may also get food cravings which in turn may lead to wait changes that's right it's a 
+really serious thing and it can cause you to suffer from anxiety which is why werere going to tell you some things that experts say 
+you can do to help you cope with cabin fever yes will let you know right after these examples using the words cabin fever i start to 
+suffer from cabin fever after i was stuck at home for two weeks some scientists think that cabin fever is link to the feeling of 
+clstrophobia the fear of being en closed places he said he felt really anxious that he was suffering from cabin fever after not 
+being able to leave his house you also said he gained weight this is the english we speak from bbc learn english and we re talking 
+about the expression cabin fever which is the feeling of stress from isolation that some people experience when they stay in a 
+building for an extended time but apparently there are some ways you can cope if your suffering from cabin fever art their fa that 's 
+right one of the first things they say to do is to set regular meal times so kind of like a routine much like you would have if you 
+were going to work yes this helps regularity and limits bin jating and waitishes also it's important try stimulate your mind things 
+like television are ok for distraction but they don 't overly stimulate you something like reading a book may be more interesting 
+and keep your mind active yes and doing things like pazzzles or crosswords can also help i really enjoyed to in quizes on line also 
+you should make sure your friends and families are coping if they in the same situation absolutely a fun qut to someone to check on 
+them may really help them and you can also give them the same advice where giving you now finally it's important to set goals try to 
+achieve things in your day to keep you focused you can even make weakkly goals depending on how long you isolation will before he 
+why not try writing a book that's an idea by roy by from bc and english"
+
+
+
+
+
+
+# AWS Trancsibe
+# s3://myawsbuket-lg/TheEnglishWeSpeak-20200428-CabinFever_16000.wav
+# https://us-east-2.console.aws.amazon.com/transcribe/home?region=us-east-2#job-details/test_job3_16000
+
+
+This is a download from BBC Learning English to find out more visit our website Theo English from BBC Learning English Hello and 
+welcome to the English We speak with me Faye Faye and me Roy We may sound a little different That's because we're not able to record 
+in our normal studios during the krona virus outbreak There has been a lot of discussion about self isolation on staying at home on in 
+this program We have an expression to talk about the stress you may feel in that situation That's right faithfully Today we're going to 
+talk about cabin fever Cabin fever is three reaction to feeling trapped or isolated in a building for too long It can be really stressful 
+This expression probably comes from people being trapped on not able to leave a small wooden house known as the cabin 
+They may not have been able to leave due to the extreme weather conditions like a snowstorm As thes buildings are often found on 
+mountains or hills people could become sad restless and even lack concentration They may also get food cravings which in turn may 
+lead to weight changes That's right it's a really serious thing and it can cause you to suffer from anxiety Which is why 
+we're going to tell you some things that experts say you can do to help you cope with cabin fever Yes we'll let you know 
+right after these examples Using the words Cabin fever I started to suffer from cabin fever after I was stuck at home for two weeks 
+Some scientists think that cabin fever is linked to the feeling of claustrophobia the fear of being enclosed places He said he felt really 
+anxious and that he was suffering from cabin fever after not being able to leave his house He also said he had gained weight 
+This'll is the English we speak from BBC learning English on We're talking about the expression cabin fever which is the feeling off stress 
+from isolation that some people experience when they stay in a building for an extended time But apparently there are some 
+ways you can cope if you're suffering from cabin fever aren't there Say say That's right One of the first things they say to do is to set 
+regular mealtimes so kind of like a routine much like you would have if you were going toe work Yes this helps regularity 
+and limits binge eating and weight issues Also it's important trying to stimulate your mind Things like television are okay for 
+distraction but they don't overly stimulate you something like reading a book maybe more interesting and keep your mind active 
+Yes I'm doing things like puzzles or crosswords can also help I really enjoyed doing quizzes online Also you should make sure 
+your friends and families are coping if they're in the same situation Absolutely Ah phone call to someone to check on them may 
+really help them and you can also give them the same advice we're giving you now Finally it's important to set goals 
+Try to achieve things in your day to keep you focused You could even make weekly goals depending on how long your isolation will be 
+for Hey why not try writing a book That's an idea by Roy Bye The way English we speak from BBC Learning English
