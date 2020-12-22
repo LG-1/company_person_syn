@@ -60,3 +60,27 @@ your friends and families are coping if they're in the same situation Absolutely
 really help them and you can also give them the same advice we're giving you now Finally it's important to set goals 
 Try to achieve things in your day to keep you focused You could even make weekly goals depending on how long your isolation will be 
 for Hey why not try writing a book That's an idea by Roy Bye The way English we speak from BBC Learning English
+
+
+
+
+from __future__ import print_function
+import time
+import boto3
+transcribe = boto3.client('transcribe')
+job_name = "TheEnglishWeSpeak-20200428-CabinFever_16000"
+job_uri = "s3://myawsbuket-lg/TheEnglishWeSpeak-20200428-CabinFever_16000.wav"
+transcribe.start_transcription_job(
+    TranscriptionJobName=job_name,
+    Media={'MediaFileUri': job_uri},
+    MediaFormat='wav',
+    LanguageCode='en-US'
+)
+while True:
+    status = transcribe.get_transcription_job(TranscriptionJobName=job_name)
+    if status['TranscriptionJob']['TranscriptionJobStatus'] in ['COMPLETED', 'FAILED']:
+        break
+    print("Not ready yet...")
+    time.sleep(5)
+print(status)
+{'TranscriptionJob': {'TranscriptionJobName': 'TheEnglishWeSpeak-20200428-CabinFever_16000', 'TranscriptionJobStatus': 'COMPLETED', 'LanguageCode': 'en-US', 'MediaSampleRateHertz': 44100, 'MediaFormat': 'wav', 'Media': {'MediaFileUri': 's3://myawsbuket-lg/TheEnglishWeSpeak-20200428-CabinFever_16000.wav'}, 'Transcript': {'TranscriptFileUri': 'https://s3.us-east-2.amazonaws.com/aws-transcribe-us-east-2-prod/191221848404/TheEnglishWeSpeak-20200428-CabinFever_16000/df6528f3-8c13-4770-ac24-bedb471ac00d/asrOutput.json?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMiJIMEYCIQDvZgsZLczInj7ld8Sn1%2BLJwPOTCXOf3LGasCi3H%2FVW6wIhAN4vBJN2sP3lNr1f7MV%2B2%2Fv21R75Gk8W9gxGrZ6LmHVNKr0DCKT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAhoMMjQ2MzYxMzIyNzUyIgwnsQfR4RTncZMb4g0qkQNXa8am6IVDkFs3L6OpXr9c%2F7wff5r%2B%2FAocAaOw2EO2T4ugK%2BpmvNPcE8WqFXUzPq9vejtcd4eT7XD9ZHezmc1cp5s9AGQdDbAHIE6gR0WBw7wN1LTfBvsib9ZQeTuyqTyu7c06s3gtK%2FylL4B6YXvdGBcISlCwn3yHe4cZvGrhrHA7QsN7TToCO%2F%2BfvJeS%2F1ywQCq1ZWklGB8TRIs6ETGnbKhBXDQwBCS%2Fwz7vCqprOGrxWJkhV4slUu7iRHsy79waChtZgLvnqksHrILvUjmyaDrJkkiHGvSWKYlT5scyNXdwXZzWsPKEoPUvp6iXMvv%2FRJLOhQpD1wfDQ%2BVTuFRPHO87zhBhx4RPv8ZC7a76MH9rkQ3ifIWdtizlnyEpqT522bo5E8ZUVLhjK%2B6d6m7gxKwaw74tKwj4YIvu9WcvamVF8ZyMfV6ujGjVS1CMsL8ws8QohLyjM7GLTKooNdFzed5daRjflSjphxDxfGx3IlK%2Bn5HpuHZkIP2cIIGHiyKpDpMvYVCIaib%2FZ8fJkbEaOjDxmYf%2FBTrqAWxRCuPTr54onK%2BLEoj%2F3hov1NgHxOwYmMEMZayOg1KEhDDn1vn%2BE9PtM1ZH0xxgWeAzq7eiK49im8HJcPA43ThhXgsU6L1Y29VofQZEsKp4wulauS1nt%2BiMDA2Fz2GFfhYMH59%2BMgMjOzEMhfphLKi6Fo9KQ6qT7wuqUgXu4NaEARs8ZU1aUOF346bZyjLlPieQilBr1R4kkUoVYncW2Y5%2BkAwCoM8HYpgp3Eu2FKOLEcY0MQiJkdNEJcLjHjpQzBLBB%2BGOe7kTepLxwOkv6yz%2FaGU1NTASIgtjW63UYAxe%2B3syAW9cxE5Egw%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20201222T113547Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=ASIATSXCHOUAPMQW7ML5%2F20201222%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Signature=ef8b647263e0a6d6af0dd934818966347621c939fa561608b6dcf8cf6669c48a'}, 'CreationTime': datetime.datetime(2020, 12, 22, 19, 34, 31, 353000, tzinfo=tzlocal()), 'CompletionTime': datetime.datetime(2020, 12, 22, 19, 35, 42, 883000, tzinfo=tzlocal()), 'Settings': {'ChannelIdentification': False}}, 'ResponseMetadata': {'RequestId': '987ec452-279d-4f55-8b49-9e59d6f93a17', 'HTTPStatusCode': 200, 'HTTPHeaders': {'content-type': 'application/x-amz-json-1.1', 'date': 'Tue, 22 Dec 2020 11:35:46 GMT', 'x-amzn-requestid': '987ec452-279d-4f55-8b49-9e59d6f93a17', 'content-length': '2124', 'connection': 'keep-alive'}, 'RetryAttempts': 0}}
